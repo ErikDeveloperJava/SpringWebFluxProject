@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
+import test2.spring.webflux.model.UserType;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -20,7 +21,9 @@ public class SecurityConfig {
                 .authorizeExchange()
                 .pathMatchers(HttpMethod.POST,"/movie")
                 .hasAuthority("ADMIN")
-                .pathMatchers("/user","/login","/movie")
+                .pathMatchers("/login")
+                .hasAuthority(UserType.ROLE_ANONYMOUS.name())
+                .pathMatchers("/user","/movie")
                 .permitAll()
                 .anyExchange()
                 .hasAuthority("USER")

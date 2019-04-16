@@ -24,7 +24,7 @@ public class MovieController {
     private UserRepository userRepository;
 
     @PostMapping("/{id}/favourite")
-    public Mono addFavourite(@PathVariable("id") String strId,
+    public Mono<ResponseEntity> addFavourite(@PathVariable("id") String strId,
                              @AuthenticationPrincipal CurrentUser currentUser) {
         return movieRepository.findById(strId)
                 .defaultIfEmpty(Movie
